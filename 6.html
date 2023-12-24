@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #eaeaea;
+            /* Set the default text color to white */
+        }
+
+        h1 {
+            text-shadow: 0px 0px 10px #e05fe3,
+                0px 0px 20px #e05fe3,
+                0px 0px 40px #e05fe3,
+                0px 0px 80px #e05fe3;
+            text-align: center;
+            font-size: 50px;
+            color: #eaeaea;
+            /* Set the header text color to white */
+        }
+
+        /* Rest of your existing styles remain unchanged */
+
+        img {
+            max-width: 100%;
+            max-height: 300px;
+            margin-top: 20px;
+        }
+
+        #output {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        #hint {
+            font-style: italic;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .button {
+            position: relative;
+            width: 120px;
+            height: 40px;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            color: white;
+            flex-direction: column;
+            justify-content: center;
+            border: none;
+            padding: 12px;
+            gap: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+            margin-left: auto;
+            /* Membuat margin kiri dan kanan otomatis menjadi 0 */
+            margin-right: auto;
+            /* Membuat margin kiri dan kanan otomatis menjadi 0 */
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            left: -4px;
+            top: -1px;
+            margin: auto;
+            width: 128px;
+            height: 48px;
+            border-radius: 10px;
+            background: linear-gradient(-45deg, #fc00ff 0%, #40c9ff 100%);
+            z-index: -10;
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .button::after {
+            content: "";
+            z-index: -1;
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100%);
+            transform: translate3d(0, 0, 0) scale(0.95);
+            filter: blur(20px);
+        }
+
+        .button:hover::after {
+            filter: blur(30px);
+        }
+
+        .button:hover::before {
+            transform: rotate(-180deg);
+        }
+
+        .button:active::before {
+            scale: 0.7;
+        }
+    </style>
+    <title>Tebak Gambar</title>
+</head>
+
+<body>
+    <h1>Tebak Gambar</h1>
+    <img id="gambar" src="i love you.jpg" alt="Gambar">
+    <div id="buttonsContainer">
+        <button class="button" onclick="tebakGambar()">Tebak</button>
+        <button class="button" onclick="showHint()">Hint</button>
+    </div>
+    <p id="output"></p>
+    <p id="hint"></p>
+
+    <script>
+        var nextButton = document.getElementById('nextButton');
+        var hintElement = document.getElementById('hint');
+
+        // Fungsi untuk memulai permainan
+        function startGame() {
+            document.getElementById('output').innerText = '';
+            hintElement.innerText = '';
+            nextButton.style.display = 'none';
+        }
+
+        // Fungsi untuk menebak gambar
+        function tebakGambar() {
+            var jawaban = prompt('Siapakah/apa gambar ini?');
+            if (jawaban && jawaban.toLowerCase() === 'i<3you') {
+                document.getElementById('output').innerText = 'Selamat! menyelesaikan permainan.';
+                hintElement.innerText = ''; // Clear any previous hint
+                nextButton.style.display = 'block';  // Show the Next button
+            } else {
+                document.getElementById('output').innerText = 'Maaf, jawaban Anda salah. Coba lagi!';
+                nextButton.style.display = 'none';  // Hide the Next button
+            }
+        }
+
+        // Fungsi untuk menampilkan hint
+        function showHint() {
+            hintElement.innerText = 'Hint: selesaikan rumus digambar dan sederhanakan sehingga tersusun sebuah kalimat tanpa spasi.';
+        }
+
+        // Memulai permainan saat halaman dimuat
+        window.onload = startGame;
+    </script>
+</body>
+
+</html>
